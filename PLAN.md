@@ -88,16 +88,17 @@ GET    /v1/audit                            registry audit log
 
 ## 5. Tech choices
 
-- **TypeScript + Node 22 + Hono** (same stack as the gateway demo to keep the
-  pair uniform), zod for `server.json` validation, better-sqlite3 for storage
+- **Python 3.12 + FastAPI** (same stack as the gateway demo to keep the pair
+  uniform), pydantic for `server.json` validation, SQLite via stdlib
+  `sqlite3` (no ORM — the schema is five tables)
 - AuthN for the demo: static bearer tokens mapped to users
   (`alice:submitter`, `bob:approver`); production note: SSO/OIDC
 - No external deps beyond that; `docker-compose.yml` optional
 
 ## 6. Milestones
 
-- **M1 — skeleton**: Hono app, SQLite schema, namespace + server + version
-  registration with zod-validated `server.json`, list/get APIs
+- **M1 — skeleton**: FastAPI app, SQLite schema, namespace + server + version
+  registration with pydantic-validated `server.json`, list/get APIs
 - **M2 — lifecycle**: pending → approve → deprecate, four-eyes check,
   registry audit log
 - **M3 — tool schemas & risk**: tool table, risk classes, tool-level search
